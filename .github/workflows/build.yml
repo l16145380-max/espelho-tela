@@ -19,13 +19,16 @@ jobs:
       - name: Instalar Dependências
         run: npm install
 
-      - name: Instalar Capacitor CLI
-        run: npx cap init EspelhoTela com.seuprojeto.espelhotela --web-dir www
+      - name: Instalar Capacitor Global
+        run: npm install -g @capacitor/cli @capacitor/core
+
+      - name: Inicializar Projeto Capacitor Não-Interativo
+        run: npx cap init EspelhoTela com.seuprojeto.espelhotela --web-dir www --npm-client npm
 
       - name: Adicionar Plataforma Android
         run: npx cap add android
 
-      - name: Configurar Modo Não-Interativo e Gerar APK de Debug
+      - name: Gerar APK de Debug
         run: |
           cd android
           chmod +x gradlew

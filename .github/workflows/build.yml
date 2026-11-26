@@ -16,19 +16,23 @@ jobs:
         with:
           node-version: 18
 
-      - name: Instalar Dependências e Capacitor
+      - name: Instalar Dependências e Capacitor Global
         run: |
           npm install
           npm install -g @capacitor/cli @capacitor/core
 
-      - name: Adicionar Capacitor Android Diretamente
+      - name: Criar Projeto Capacitor Localmente
+        run: |
+          npx cap init EspelhoTela com.espelho.tela --web-dir www --npm-client npm --yes
+
+      - name: Adicionar Plataforma Android Forçada
         run: |
           npx cap add android --no-telemetry
 
-      - name: Copiar Ficheiros Web para o Android
+      - name: Copiar Ficheiros Web
         run: npx cap copy android
 
-      - name: Gerar APK de Debug
+      - name: Compilar APK de Debug
         run: |
           cd android
           chmod +x gradlew

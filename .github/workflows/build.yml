@@ -1,0 +1,38 @@
+name: Compilar APK Android
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar Repositório
+        uses: actions/checkout@v3
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Instalar Dependências
+        run: npm install
+
+      - name: Instalar Capacitor CLI
+        run: npx cap init EspelhoTela com.seuprojeto.espelhotela --web-dir www
+
+      - name: Adicionar Plataforma Android
+        run: npx cap add android
+
+      - name: Configurar Modo Não-Interativo e Gerar APK de Debug
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Guardar Ficheiro APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-debug
+          path: android/app/build/outputs/apk/debug/app-debug.apk

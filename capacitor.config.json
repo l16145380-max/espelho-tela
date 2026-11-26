@@ -1,0 +1,6 @@
+{
+  "appId": "com.seuprojeto.espelhotela",
+  "appName": "EspelhoTela",
+  "webDir": "www",
+  "bundledWebRuntime": false
+}
